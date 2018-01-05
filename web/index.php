@@ -23,7 +23,6 @@ require_once '../vendor/autoload.php';
     foreach ($events as $event){
 	
 		$reply_token = $event->getReplyToken();
-		$user_id=$event->getUserId();
 
 		//follow event 
         if ($event instanceof \LINE\LINEBot\Event\FollowEvent) { 
@@ -51,8 +50,8 @@ require_once '../vendor/autoload.php';
 		//text event 
         if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
 			$getText = $event->getText();
- 
-			$textMessage = $getText;
+			  
+			$textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getText);
 			$response =  $bot->replyMessage($reply_token, $textMessage);
         }
 
@@ -97,27 +96,7 @@ require_once '../vendor/autoload.php';
 	  return  json_decode($output)->result->fulfillment->speech;
    }
 
-   function make_bitly_url($url,$login,$appkey,$format = 'xml',$version = '2.0.1')
-   {
-	   //create the URL
-	   $bitly = 'http://api.bit.ly/shorten?version='.$version.'&longUrl='.urlencode($url).'&login='.$login.'&apiKey='.$appkey.'&format='.$format;
-	   
-	   //get the url
-	   //could also use cURL here
-	   $response = file_get_contents($bitly);
-	   
-	   //parse depending on desired format
-	   if(strtolower($format) == 'json')
-	   {
-		   $json = @json_decode($response,true);
-		   return $json['results'][$url]['shortUrl'];
-	   }
-	   else //xml
-	   {
-		   $xml = simplexml_load_string($response);
-		   return 'http://bit.ly/'.$xml->results->nodeKeyVal->hash;
-	   }
-   }
+ 
 
  
 
