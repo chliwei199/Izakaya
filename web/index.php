@@ -1,6 +1,7 @@
 <?php 
 require_once '../vendor/autoload.php';
- 
+use Google\Cloud\Language\LanguageClient;
+
  	if (file_exists(__DIR__.'/.env')){
 		$dotenv = new Dotenv\Dotenv(__DIR__);	
 		$dotenv->load();
@@ -49,8 +50,9 @@ require_once '../vendor/autoload.php';
  
 		//text event 
         if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
+			$entity_names='';
 			$getText = $event->getText();
-			  
+
 			$textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getText);
 			$response =  $bot->replyMessage($reply_token, $textMessage);
         }
@@ -95,9 +97,4 @@ require_once '../vendor/autoload.php';
 		curl_close($ch);
 	  return  json_decode($output)->result->fulfillment->speech;
    }
-
- 
-
- 
-
  ?>
