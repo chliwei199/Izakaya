@@ -20,7 +20,7 @@ use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
  
 	$signature = $_SERVER["HTTP_".\LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 	$body = file_get_contents("php://input");
-	$redis= new App\event\RedisHandler;				//create RedisHandler object
+//	$redis= new App\event\RedisHandler;				//create RedisHandler object
 
 	//error_log("Signature: ".$signature);
 
