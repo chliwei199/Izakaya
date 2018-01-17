@@ -50,11 +50,24 @@ use Google\Cloud\Language\LanguageClient;
  
 		//text event 
         if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
-			$entity_names='';
 			$getText = $event->getText();
+			$array = [
+ 
+				"關於我們" => "bot_about_as",
+				"找菜" => "bot_imagemap" 
+			];			
 
-			$textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getText);
-			$response =  $bot->replyMessage($reply_token, $textMessage);
+			if(isset($array[$getText])){
+			include('event/message_event/'.$array[$getText].'.php');
+			}else{ 
+			   $result= find_synonym(urlencode($getText));
+			   if($result!=='bot_imagemap')
+				include('event/message_event/no_event.php');
+			   else{
+				include('event/message_event/bot_imagemap.php');  
+			   }
+			} 
+
         }
 
 		//location event 		
