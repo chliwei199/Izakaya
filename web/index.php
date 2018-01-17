@@ -64,14 +64,15 @@ use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 			if(isset($array[$getText])){
 			include('event/message_event/'.$array[$getText].'.php');
-			}else{ 
-			   $result= find_synonym(urlencode($getText));
-			   if($result!=='bot_imagemap')
-				include('event/message_event/no_event.php');
-			   else{
-				include('event/message_event/bot_imagemap.php');  
-			   }
-			} 
+			}
+			// else{ 
+			//    $result= find_synonym(urlencode($getText));
+			//    if($result!=='bot_imagemap')
+			// 	include('event/message_event/no_event.php');
+			//    else{
+			// 	include('event/message_event/bot_imagemap.php');  
+			//    }
+			// } 
 
 			$MultiMessageBuilder = new LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
 			//$results =json_decode( file_get_contents('https://spreadsheets.google.com/feeds/list/1ZLpkq1oidCON-9cuBA1x-J-vS_G2R4VA2JZo4bMq2_I/1/public/values?alt=json'));
