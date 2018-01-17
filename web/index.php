@@ -1,6 +1,11 @@
 <?php 
 require_once '../vendor/autoload.php';
 use Google\Cloud\Language\LanguageClient;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
  	if (file_exists(__DIR__.'/.env')){
 		$dotenv = new Dotenv\Dotenv(__DIR__);	
@@ -68,6 +73,22 @@ use Google\Cloud\Language\LanguageClient;
 			   }
 			} 
 
+			$MultiMessageBuilder = new LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
+			//$results =json_decode( file_get_contents('https://spreadsheets.google.com/feeds/list/1ZLpkq1oidCON-9cuBA1x-J-vS_G2R4VA2JZo4bMq2_I/1/public/values?alt=json'));
+			 $results =json_decode( file_get_contents('https://spreadsheets.google.com/feeds/list/1ZLpkq1oidCON-9cuBA1x-J-vS_G2R4VA2JZo4bMq2_I/'.$getText.'/public/values?alt=json'));
+			foreach($results->feed->entry as $entry){
+				$actions =array( new MessageTemplateActionBuilder('按'.emoji('1F44D').'分享!'," "));
+				$baseUrl='https://'. $_SERVER['HTTP_HOST'].getenv('image_path').$entry->{'gsx$pictureurl'}->{'$t'}.'?_ignore=';
+				$hotsale=$entry->{'gsx$hotsale'}->{'$t'}==='B'?emoji('1F44D'):'';
+				$column = new CarouselColumnTemplateBuilder($hotsale.$entry->{'gsx$name'}->{'$t'},$entry->{'gsx$price'}->{'$t'},$baseUrl,$actions);
+				$columns[] = $column;
+			}
+			$carousel = new CarouselTemplateBuilder($columns);
+			$msg = new TemplateMessageBuilder(emoji('1F50D')."這訊息要在手機上才能看唷", $carousel);
+			$MultiMessageBuilder->add($msg);
+
+			//$textMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($getText);
+			$bot->replyMessage($reply_token, $MultiMessageBuilder);
         }
 
 		//location event 		
