@@ -10,13 +10,19 @@
 				if (isset($data["map_key"])) {
 					
 					$page = $data["map_key"];
-
+					$pieces = explode("#", $page); //[0]=sheet gid;[1]=page number 
 					switch ($page) {
+						// case 'Y':
+						// include('event/message_event/bot_map_search.php');
+						// break;
 						case 'Y':
-						include('event/message_event/bot_map_search.php');
-						break;
-						case 'N':
 						include('event/message_event/bot_imagemap.php');
+						break;
+						default:
+							//include('event/message_event/bot_map_search.php');
+							$UtilityHandler= new App\event\UtilityHandler;				//create UtilityHandler object
+							$MultiMessageBuilder=$UtilityHandler->displayMoreItems($pieces[0],$pieces[1]);				//get json string from description
+							$bot->replyMessage($reply_token, $MultiMessageBuilder);
 						break;				
 					}
 
