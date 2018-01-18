@@ -59,6 +59,7 @@ use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 			$array = [
  
 				"關於我們" => "bot_about_as",
+				"菜單" => "bot_fullmenu",
 				"找菜" => "bot_imagemap" 
 			];			
 
