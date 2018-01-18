@@ -58,7 +58,9 @@ define("_data_maxsize", 10);
  
 				"關於我們" => "bot_about_as",
 				"菜單" => "bot_fullmenu",
-				"找菜" => "bot_imagemap" 
+				"找菜" => "bot_imagemap" ,
+				preg_match ("/\找菜：/i", $getText) == 1 ? $getText : "" => "bot_category",
+				preg_match ("/\找酒：/i", $getText) == 1 ? $getText : "" => "bot_category"				
 			];			
 
 			if(isset($array[$getText])){
