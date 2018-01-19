@@ -37,28 +37,28 @@ class ImagemapHandler {
         $areaBuilder6_2 = new AreaBuilder(293,1164,203,119); 	
         
 
-        $food_1_1="找菜：pork";
-        $food_1_2="找菜：beef";
-        $food_1_3="找菜：chicken";
-        $food_1_4="找菜：mutton";
-        $food_2_1="找菜：fry";
-        $food_2_2="找菜：seafood";
-        $food_2_3="找菜：soup";
+        $food_1_1="找菜：豬";
+        $food_1_2="找菜：牛";
+        $food_1_3="找菜：雞";
+        $food_1_4="找菜：羊";
+        $food_2_1="找菜：炸";
+        $food_2_2="找菜：海鮮";
+        $food_2_3="找菜：湯";
         $food_2_4="找菜：pizza";
-        $food_3_1="找菜：appertizer";
-        $food_3_2="找菜：entree";
-        $food_3_3="找菜：vegetable";
+        $food_3_1="找菜：開胃菜";
+        $food_3_2="找菜：主菜";
+        $food_3_3="找菜：蔬菜";
 
-        $wine_1_1="找酒：bottlebeer";
-        $wine_1_2="找酒：softdrink";
-        $wine_1_3="找酒：sake";
-        $wine_1_4="找酒：cocktail";
-        $wine_2_1="找酒：whisky";
-        $wine_2_2="找酒：sowa";
-        $wine_2_3="找酒：wine";
-        $wine_2_4="找酒：fruitsake";
-        $wine_3_1="找酒：soju";
-        $wine_3_2="找酒：draftbeer";
+        $wine_1_1="找酒：罐裝BEER";
+        $wine_1_2="找酒：汽水";
+        $wine_1_3="找酒：清酒";
+        $wine_1_4="找酒：雞尾酒";
+        $wine_2_1="找酒：威士忌";
+        $wine_2_2="找酒：沙瓦";
+        $wine_2_3="找酒：葡萄酒";
+        $wine_2_4="找酒：水果清酒";
+        $wine_3_1="找酒：燒酒";
+        $wine_3_2="找酒：生BEER";
 
         $columns[] = new ImagemapMessageActionBuilder($food_1_1,$areaBuilder1_1);
         $columns[] = new ImagemapMessageActionBuilder($food_1_2,$areaBuilder1_2);
