@@ -1,7 +1,7 @@
 <?php
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
-
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
@@ -25,7 +25,14 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 
 	foreach($results->feed->entry as $key =>$entry){
 		if($key <constant("_data_maxsize") ){  //avoid data more than than 10; 
-			$actions =array( new MessageTemplateActionBuilder(emoji('1F44D').' 給菜一個讚'," "));
+
+			$share =emoji('100005')."BLAH BLAH BLAH 居酒屋的"					
+			."⌜".$hotsale.$entry->{'gsx$name'}->{'$t'}."⌟，真的是超讚的，而且老闆人又很NICE，趕快過來試試看吧。\r\n\r\n"								
+			.emoji('2728')."地點資訊：https://www.google.com.tw/maps/place/BLAH+BLAH+BLAH+居酒屋+106\r\n";
+
+
+			//$actions =array( new MessageTemplateActionBuilder(emoji('1F44D').' 給菜一個讚'," "));
+			$actions =array( new UriTemplateActionBuilder(emoji('1F46B').' 推菜給好友',"line://msg/text/?".urlencode($share)));
 			$baseUrl='https://'. $_SERVER['HTTP_HOST'].getenv('image_path').$entry->{'gsx$pictureurl'}->{'$t'}.'?_ignore=';
 			$hotsale=$entry->{'gsx$hotsale'}->{'$t'}==='B'?emoji('1F496').' ':'';
 			$column = new CarouselColumnTemplateBuilder($hotsale.$entry->{'gsx$name'}->{'$t'},emoji('1F4B5')." ".$entry->{'gsx$price'}->{'$t'},$baseUrl,$actions);

@@ -2,6 +2,7 @@
 namespace App\event;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
@@ -62,10 +63,17 @@ class UtilityHandler {
 		
 			foreach($results->feed->entry as $key =>$entry){
 				if( $key >= ($quotient-1)*constant("_data_maxsize") && $key < $quotient*constant("_data_maxsize") ){  //between n-1 <= X < n
-					$actions =array( new MessageTemplateActionBuilder('按'.emoji('1F44D').'分享!'," "));
+
+					$share =emoji('100005')."BLAH BLAH BLAH 居酒屋的"					
+					."⌜".$hotsale.$entry->{'gsx$name'}->{'$t'}."⌟，真的是超讚的，而且老闆人又很NICE，趕快過來試試看吧。\r\n\r\n"								
+					.emoji('2728')."地點資訊：https://www.google.com.tw/maps/place/BLAH+BLAH+BLAH+居酒屋+106\r\n";
+		
+		
+					//$actions =array( new MessageTemplateActionBuilder(emoji('1F44D').' 給菜一個讚'," "));
+					$actions =array( new UriTemplateActionBuilder(emoji('1F46B').' 推菜給好友',"line://msg/text/?".urlencode($share)));
 					$baseUrl='https://'. $_SERVER['HTTP_HOST'].getenv('image_path').$entry->{'gsx$pictureurl'}->{'$t'}.'?_ignore=';
-					$hotsale=$entry->{'gsx$hotsale'}->{'$t'}==='B'?emoji('1F44D'):'';
-					$column = new CarouselColumnTemplateBuilder($hotsale.$entry->{'gsx$name'}->{'$t'},$entry->{'gsx$price'}->{'$t'},$baseUrl,$actions);
+					$hotsale=$entry->{'gsx$hotsale'}->{'$t'}==='B'?emoji('1F496').' ':'';
+					$column = new CarouselColumnTemplateBuilder($hotsale.$entry->{'gsx$name'}->{'$t'},emoji('1F4B5')." ".$entry->{'gsx$price'}->{'$t'},$baseUrl,$actions);
 					$columns[] = $column;
 				}
 			}
@@ -78,7 +86,7 @@ class UtilityHandler {
 					new PostbackTemplateActionBuilder(" ", " ")
 			);
 		
-			$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder(emoji('1F4CC')." 是否顯示更多？", $actions);
+			$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder(emoji('1F4CC')." 訊息", $actions);
 			$msg2 = new TemplateMessageBuilder(emoji('1F50D')."這訊息要在手機上才能看唷", $button);					
 			$MultiMessageBuilder->add($msg2);
 	   return $MultiMessageBuilder;
