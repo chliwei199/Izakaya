@@ -8,9 +8,9 @@
 			if ($getText) {
 				parse_str($getText, $data);
 				if (isset($data["map_key"])) {
-					
 					$page = $data["map_key"];
-					$pieces = explode("#", $page); //[0]=sheet gid;[1]=page number 
+					$Text=str_replace(array('找菜：', '找酒：'), '', $page);
+					$pieces = explode("#", $Text); //[0]=sheet gid;[1]=page number 
 					switch ($page) {
 						// case 'Y':
 						// include('event/message_event/bot_map_search.php');

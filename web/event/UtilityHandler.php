@@ -48,9 +48,17 @@ class UtilityHandler {
 		$Text = str_replace($be_replaced, $replacement, trim($ori_string));
 	   return $Text;
 	}
-	public function displayMoreItems($number,$quotient){
+	public function displayMoreItems($category,$quotient){
+		$list =json_decode( file_get_contents('https://spreadsheets.google.com/feeds/list/1ZLpkq1oidCON-9cuBA1x-J-vS_G2R4VA2JZo4bMq2_I/1/public/values?alt=json'));
+   
+		foreach($list->feed->entry as $entry){
+			$codemap[$entry->{'gsx$category'}->{'$t'}] = $entry->{'gsx$id'}->{'$t'}; //get categoty->id
+		}
+	
+		$Text=$codemap[$category];
+
 			$MultiMessageBuilder = new MultiMessageBuilder();
-			$results =json_decode( file_get_contents('https://spreadsheets.google.com/feeds/list/1ZLpkq1oidCON-9cuBA1x-J-vS_G2R4VA2JZo4bMq2_I/'.$number.'/public/values?alt=json'));
+			$results =json_decode( file_get_contents('https://spreadsheets.google.com/feeds/list/1ZLpkq1oidCON-9cuBA1x-J-vS_G2R4VA2JZo4bMq2_I/'.$Text.'/public/values?alt=json'));
 		
 			foreach($results->feed->entry as $key =>$entry){
 				if( $key >= ($quotient-1)*constant("_data_maxsize") && $key < $quotient*constant("_data_maxsize") ){  //between n-1 <= X < n
