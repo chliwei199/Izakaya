@@ -30,7 +30,7 @@
 
 
 			$MultiMessageBuilder->add(new LINE\LINEBot\MessageBuilder\TextMessageBuilder($text));
-			$MultiMessageBuilder->add($msg);
+			//$MultiMessageBuilder->add($msg);
 			$bot->replyMessage($reply_token, $MultiMessageBuilder);
 			 
 ?>			
