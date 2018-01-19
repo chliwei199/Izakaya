@@ -63,6 +63,8 @@ define("_data_maxsize", 10);
 
 			if(isset($array[$getText])){
 			include('event/message_event/'.$array[$getText].'.php');
+			}else{
+			include('event/message_event/no_event.php');
 			}
 			// else{ 
 			//    $result= find_synonym(urlencode($getText));

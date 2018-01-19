@@ -25,10 +25,10 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 
 	foreach($results->feed->entry as $key =>$entry){
 		if($key <constant("_data_maxsize") ){  //avoid data more than than 10; 
-			$actions =array( new MessageTemplateActionBuilder('按'.emoji('1F44D').'分享!'," "));
+			$actions =array( new MessageTemplateActionBuilder(emoji('1F44D').' 給菜一個讚'," "));
 			$baseUrl='https://'. $_SERVER['HTTP_HOST'].getenv('image_path').$entry->{'gsx$pictureurl'}->{'$t'}.'?_ignore=';
-			$hotsale=$entry->{'gsx$hotsale'}->{'$t'}==='B'?emoji('1F44D'):'';
-			$column = new CarouselColumnTemplateBuilder($hotsale.$entry->{'gsx$name'}->{'$t'},$entry->{'gsx$price'}->{'$t'},$baseUrl,$actions);
+			$hotsale=$entry->{'gsx$hotsale'}->{'$t'}==='B'?emoji('1F496').' ':'';
+			$column = new CarouselColumnTemplateBuilder($hotsale.$entry->{'gsx$name'}->{'$t'},emoji('1F4B5')." ".$entry->{'gsx$price'}->{'$t'},$baseUrl,$actions);
 			$columns[] = $column;
 		}
 	}
@@ -48,7 +48,7 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 		);
 	}
 
-	$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder(emoji('1F4CC')." 是否顯示更多？", $actions);
+	$button = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder(emoji('1F4CC')." 訊息", $actions);
 	$msg2 = new TemplateMessageBuilder(emoji('1F50D')."這訊息要在手機上才能看唷", $button);
 	$MultiMessageBuilder->add($msg2);
 
